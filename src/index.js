@@ -37,10 +37,41 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
-function decode(expr) {
-    // write your solution here
+const MORSE_SYMBOLS = {
+    '00': '',
+    '10': '.',
+    '11': '-',
+};
+
+function decodeLetter(letter) {
+    if (letter == "**********") {
+        return ' ';
+    }
+
+    let result = '';
+    for (let i = 0; i < 10; i += 2) {
+        let symbol = letter.slice(i, i + 2);
+        result += MORSE_SYMBOLS[symbol];
+    }
+
+    return MORSE_TABLE[result];
 }
 
-module.exports = {
-    decode
+function decode(expr) {
+    // write your solution here
+    let position = 0;
+    let result = '';
+
+    while (position < expr.length) {
+        let letter = expr.slice(position, position + 10);
+
+        position += 10;
+        result += decodeLetter(letter);
+    }
+
+    return result;
+}
+
+ module.exports = {
+     decode
 }
